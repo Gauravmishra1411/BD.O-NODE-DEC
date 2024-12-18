@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <!-- Sign Up Form -->
+    <form action="http://localhost:8000/signup" method="post">
+      <label for="name">Name : </label>
+      <input type="text" name="name" id="name"><br><br>
+      <label for="email">Email : </label>
+      <input type="text" name="email" id="email"><br><br>
+      <label for="password">Password : </label>
+      <input type="text" name="password" id="password"><br><br>
+      <label for="skill">Skill : </label>
+      <input type="text" name="skill" id="skill"><br><br>
+      <label for="gender">Gender : </label>
+      <input type="text" name="gender" id="gender"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+
+    <!-- Delete Form -->
+    <form onsubmit="deleteRecord(event)">
+      <label for="_id">ID to delete: </label>
+      <input type="text" id="_id" name="_id"><br><br>
+      <input type="submit" value="Delete">
+    </form>
+  </div>
+
+  <script>
+    // Function to send DELETE request
+    function deleteRecord(event) {
+      event.preventDefault(); // Prevent form's default behavior
+
+      const id = document.getElementById('_id').value;
+
+      // Check if the ID is provided
+      if (!id) {
+        alert("Please provide an ID to delete.");
+        return;
+      }
+
+      fetch('http://localhost:8000/deletes', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json' // Ensure the request is sent as JSON
+        },
+        body: JSON.stringify({ _id: id }) // Send the ID in the request body
+      })
+      .then(response => response.text()) // Parse the response as text
+      .then(data => {
+        alert(data); // Show response from server
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert("An error occurred while deleting.");
+      });
+    }
+  </script>
+</body>
+</html>
