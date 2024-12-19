@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="input" placeholder="Enter a number">
+    <div class="output" id="output"></div>
+
+    <script>
+        var input = document.getElementById("input");
+        var output1 = document.getElementById("output");
+
+        input.addEventListener("input", function () {
+            const inputValue = input.value;
+            const newValue = parseInt(inputValue);
+
+            if (!inputValue) {
+                output1.textContent = " ";
+                return;
+            }
+
+            if (newValue < 0) {
+                output1.textContent = "Enter a positive value";
+                return;
+            }
+
+            if (newValue % 2 == 0) {
+                var a = [];
+                for (let i = 1; i <= 3; i++) {
+                    a.push(newValue + (i * 2));
+                }
+                output1.textContent = `${a.join(",")}`;
+            } else {
+                var b = [];
+                for (let i = 1; i <= 3; i++) {
+                    b.push(newValue + (i * 2));
+                }
+                output1.textContent = `${b.join(",")}`;
+            }
+        });
+    </script>
+</body>
+</html>
